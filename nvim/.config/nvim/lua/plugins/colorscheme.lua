@@ -2,7 +2,7 @@ return {
   {
     "LazyVim/LazyVim",
     opts = {
-      colorscheme = "kanagawa-paper",
+      colorscheme = "tokyonight",
     },
   },
 
@@ -16,15 +16,6 @@ return {
         sidebars = "transparent",
         floats = "transparent",
       },
-    },
-  },
-
-  {
-    "thesimonho/kanagawa-paper.nvim",
-    lazy = false,
-    priority = 1000,
-    opts = {
-      transparent = true,
     },
   },
 }
