@@ -57,6 +57,29 @@ zshrc_append() {
   ok "$marker adicionado em $ZSHRC"
 }
 
+# rc_append <marker> <bloco> [arquivos...]
+# Acrescenta <bloco> aos rc files (default: ~/.bashrc e ~/.zshrc), apenas nos
+# que existirem. Idempotente via grep -qF "<marker>".
+rc_append() {
+  local marker="$1" block="$2"
+  shift 2
+  local files=("$@")
+  [[ ${#files[@]} -eq 0 ]] && files=("$HOME/.bashrc" "$HOME/.zshrc")
+  local file
+  for file in "${files[@]}"; do
+    if [[ ! -f "$file" ]]; then
+      skipped "$file não existe — pulando"
+      continue
+    fi
+    if grep -qF "$marker" "$file"; then
+      skipped "$marker já presente em $file"
+      continue
+    fi
+    printf '\n%s\n' "$block" >> "$file"
+    ok "$marker adicionado em $file"
+  done
+}
+
 # enable_service <unit>
 enable_service() {
   local unit="$1"

@@ -12,6 +12,7 @@ PACKAGES=(
   zsh-autosuggestions
   zsh-syntax-highlighting
   fzf
+  zoxide
   stow
   git
   curl
@@ -32,12 +33,24 @@ VTE_BLOCK='# Open new terminal tabs/windows in the same directory
 # fzf no Ubuntu < 0.48 não tem `fzf --zsh`; usamos os scripts do pacote.
 FZF_BLOCK='# Set up fzf key bindings
 [[ -f /usr/share/doc/fzf/examples/key-bindings.zsh ]] && source /usr/share/doc/fzf/examples/key-bindings.zsh
-[[ -f /usr/share/doc/fzf/examples/completion.zsh ]] && source /usr/share/doc/fzf/examples/completion.zsh
+[[ -f /usr/share/doc/fzf/examples/completion.zsh ]] && source /usr/share/doc/fzf/examples/completion.zsh'
 
+HISTORY_BLOCK='# History (bem grande + dedup + compartilhado entre sessões)
 HISTFILE=~/.zsh_history
-HISTSIZE=10000
-SAVEHIST=10000
-setopt appendhistory'
+HISTSIZE=1000000
+SAVEHIST=1000000
+setopt APPEND_HISTORY        # acrescenta em vez de sobrescrever
+setopt SHARE_HISTORY         # compartilha o history entre sessões abertas
+setopt EXTENDED_HISTORY      # grava timestamp de cada comando
+setopt HIST_IGNORE_ALL_DUPS  # remove duplicatas antigas
+setopt HIST_IGNORE_SPACE     # não grava comandos iniciados com espaço
+setopt HIST_REDUCE_BLANKS    # normaliza espaços em branco
+setopt HIST_FIND_NO_DUPS     # ignora duplicatas ao navegar
+# `history` sem args mostra só os últimos 16; isto faz mostrar tudo:
+alias history="history 1"'
+
+ZOXIDE_BLOCK='# Zoxide (cd inteligente) — mantenha por último no .zshrc
+eval "$(zoxide init zsh --cmd cd)"'
 
 HG_ALIAS='alias hg='"'"'print -z $(fc -l 1 | fzf --tac --no-sort | sed "s/ *[0-9]* *//")'"'"''
 
@@ -92,6 +105,7 @@ zshrc_append 'compinit'                       $'\nautoload -Uz compinit && compi
 zshrc_append 'starship init zsh'              "$STARSHIP_BLOCK"
 zshrc_append 'vte-2.91.sh'                    "$VTE_BLOCK"
 zshrc_append 'fzf/examples/key-bindings.zsh'  "$FZF_BLOCK"
+zshrc_append 'HIST_IGNORE_ALL_DUPS'           "$HISTORY_BLOCK"
 zshrc_append 'alias hg='                      "$HG_ALIAS"
 zshrc_append '"^[[1;5D" backward-word'        "$KEYBINDINGS_BLOCK"
 
@@ -105,5 +119,8 @@ else
 fi
 
 zshrc_append 'source ~/.aliases' "$ALIASES_LINE"
+
+# Zoxide por último para silenciar o aviso do `zoxide doctor`.
+zshrc_append 'zoxide init zsh' "$ZOXIDE_BLOCK"
 
 ok "Setup do zsh concluído."
