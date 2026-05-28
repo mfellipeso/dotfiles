@@ -13,6 +13,7 @@ PACKAGES=(
   ca-certificates
   git
   pkg-config
+  ripgrep
 )
 
 info "Verificando dependências de build..."
