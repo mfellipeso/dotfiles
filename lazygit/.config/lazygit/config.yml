@@ -1,0 +1,8 @@
+# Abre arquivos do lazygit na janela atual do Neovim em vez de uma aba nova.
+# O preset "nvim-remote" usa --remote-tab (abre aba); o edit/editAtLine abaixo
+# sobrescrevem pra --remote (janela atual).
+# O `--remote-send "q"` fecha o float do lazygit antes de abrir o arquivo.
+os:
+  editPreset: "nvim-remote"
+  edit: 'nvim --server "$NVIM" --remote-send "q" && nvim --server "$NVIM" --remote {{filename}}'
+  editAtLine: 'nvim --server "$NVIM" --remote-send "q" && nvim --server "$NVIM" --remote {{filename}}'
