@@ -6,7 +6,7 @@ return {
     },
   },
 
-  -- enable transparent on tokyonight
+  -- enable 123 transparent on tokyonight
   {
     "folke/tokyonight.nvim",
     lazy = true,
