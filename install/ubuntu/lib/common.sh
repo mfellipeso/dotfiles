@@ -101,9 +101,9 @@ need_cmd() {
   fi
 }
 
-# stow_pkg <name>  — linka pacote de $DOTFILES_DIR/configs via stow
+# stow_pkg <name>  — linka pacote de $DOTFILES_DIR via stow
 stow_pkg() {
   local name="$1"
   need_cmd stow "instale via setup-zsh.sh ou apt install stow" || return 1
-  stow --dir="$DOTFILES_DIR/configs" --target="$HOME" "$name"
+  stow --dir="$DOTFILES_DIR" --target="$HOME" "$name"
 }

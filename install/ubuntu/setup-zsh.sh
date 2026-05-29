@@ -13,6 +13,7 @@ PACKAGES=(
   zsh-syntax-highlighting
   fzf
   zoxide
+  eza
   stow
   git
   curl
@@ -111,7 +112,7 @@ zshrc_append '"^[[1;5D" backward-word'        "$KEYBINDINGS_BLOCK"
 
 # --- 6. Stow + source de aliases ---------------------------------------------
 info "Verificando symlink de aliases..."
-if [[ -L "$HOME/.aliases" && "$(readlink "$HOME/.aliases")" == *dotfiles/configs/aliases/.aliases* ]]; then
+if [[ -L "$HOME/.aliases" && "$(readlink "$HOME/.aliases")" == *dotfiles/aliases/.aliases* ]]; then
   skipped ".aliases já linkado"
 else
   stow_pkg aliases
