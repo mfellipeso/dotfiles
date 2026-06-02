@@ -14,6 +14,11 @@ PACKAGES=(
   git
   pkg-config
   ripgrep
+  python3-pip
+  python3-venv
+  rg
+  lazygit
+  net-tools
 )
 
 info "Verificando dependências de build..."
