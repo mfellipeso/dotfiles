@@ -10,7 +10,8 @@ source "$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/lib/common.sh"
 # --- 1. zoxide ----------------------------------------------------------------
 info "zoxide..."
 pacman_install zoxide
-zshrc_append 'zoxide init zsh' 'eval "$(zoxide init zsh --cmd cd)"'
+zshrc_append 'zoxide init zsh' 'export _ZO_DOCTOR=0   # silencia o aviso do `zoxide doctor`
+eval "$(zoxide init zsh --cmd cd)"'
 
 # --- 2. nano + syntax ---------------------------------------------------------
 info "nano-syntax-highlighting..."

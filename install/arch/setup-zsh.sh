@@ -48,7 +48,8 @@ setopt HIST_FIND_NO_DUPS     # ignora duplicatas ao navegar
 # `history` sem args mostra só os últimos 16; isto faz mostrar tudo:
 alias history="history 1"'
 
-ZOXIDE_BLOCK='# Zoxide (cd inteligente) — mantenha por último no .zshrc
+ZOXIDE_BLOCK='# Zoxide (cd inteligente)
+export _ZO_DOCTOR=0   # silencia o aviso do `zoxide doctor`
 eval "$(zoxide init zsh --cmd cd)"'
 
 HG_ALIAS='alias hg='"'"'print -z $(fc -l 1 | fzf --tac --no-sort | sed "s/ *[0-9]* *//")'"'"''
@@ -109,7 +110,7 @@ fi
 
 zshrc_append 'source ~/.aliases' "$ALIASES_LINE"
 
-# Zoxide por último para silenciar o aviso do `zoxide doctor`.
+# Zoxide por último no .zshrc; _ZO_DOCTOR=0 silencia o aviso do `zoxide doctor`.
 zshrc_append 'zoxide init zsh' "$ZOXIDE_BLOCK"
 
 ok "Setup do zsh concluído."
