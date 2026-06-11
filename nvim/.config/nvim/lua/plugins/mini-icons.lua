@@ -5,6 +5,7 @@ return {
       extension = {
         -- Test icons
         ["spec.ts"] = { glyph = "󰙨", hl = "MiniIconsOrange" },
+        ["spec.tsx"] = { glyph = "󰜈", hl = "MiniIconsOrange" },
         ["e2e-spec.ts"] = { glyph = "󰙨", hl = "MiniIconsOrange" },
         ["gateway-spec.ts"] = { glyph = "󰙨", hl = "MiniIconsOrange" },
 
