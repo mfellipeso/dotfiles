@@ -1,9 +1,9 @@
 term = xterm-256color
-command=tmux attach || tmux
-font-family = JetBrainsMono Nerd Font Mono
+command = shell: ~/.local/bin/herdr
+font-family = Cascadia Mono NF
 font-size = 13
 window-theme = ghostty
-theme = Kanagawa Wave
+theme = TokyoNight
 background-opacity = 0.99
 background-blur-radius = 10
 cursor-style = block

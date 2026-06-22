@@ -19,6 +19,7 @@ SETUP_SCRIPTS=(
   # 3) Shell
   setup-zsh.sh
   setup-tmux.sh
+  setup-herdr.sh             # multiplexador de terminal agent-aware (config via stow)
   setup-shell-tools.sh       # zoxide, nano-syntax, nvm
 
   # 4) Rede e segurança
