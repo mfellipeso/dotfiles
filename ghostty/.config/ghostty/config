@@ -1,6 +1,6 @@
 term = xterm-256color
 command = shell: ~/.local/bin/herdr
-font-family = Cascadia Mono NF
+font-family = Cascadia Code NF
 font-size = 13
 window-theme = ghostty
 theme = TokyoNight
@@ -17,4 +17,4 @@ app-notifications = no-clipboard-copy
 confirm-close-surface = false
 window-width=130
 window-height=34
-mouse-scroll-multiplier = 0.25
+mouse-scroll-multiplier = 1
