@@ -1,3 +1,4 @@
+onboarding = false
 # Keybinds espelh
 [keys]
 prefix = "ctrl+a"                  # tmux: set -g prefix ^A
@@ -26,3 +27,9 @@ name = "tokyo-night"
 
 [ui]
 agent_panel_scope = "all"
+
+[ui.sound]
+enabled = true
+
+[ui.toast]
+delivery = "off"
