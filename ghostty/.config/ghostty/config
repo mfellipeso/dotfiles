@@ -1,5 +1,5 @@
 term = xterm-256color
-command = shell: ~/.local/bin/herdr
+# command = shell: ~/.local/bin/herdr
 font-family = Cascadia Code NF
 font-size = 13
 window-theme = ghostty
