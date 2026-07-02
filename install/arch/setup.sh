@@ -8,8 +8,8 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # =============================================================================
 SETUP_SCRIPTS=(
   # 1) Kernel/sistema
-  setup-system-services.sh   # bluetooth, power-profiles, disable arch-update
-  setup-io-scheduler.sh      # udev rules (bfq/adios)
+  setup-system-services.sh # bluetooth, power-profiles, disable arch-update
+  setup-io-scheduler.sh    # udev rules (bfq/adios)
   setup-sysctl.sh
 
   # 2) Pacotes base
@@ -19,8 +19,8 @@ SETUP_SCRIPTS=(
   # 3) Shell
   setup-zsh.sh
   setup-tmux.sh
-  setup-herdr.sh             # multiplexador de terminal agent-aware (config via stow)
-  setup-shell-tools.sh       # zoxide, nano-syntax, nvm
+  setup-herdr.sh       # multiplexador de terminal agent-aware (config via stow)
+  setup-shell-tools.sh # zoxide, nano-syntax, nvm
 
   # 4) Rede e segurança
   setup-ufw.sh
@@ -32,7 +32,7 @@ SETUP_SCRIPTS=(
   setup-virt.sh
 
   # 6) Apps
-  setup-ai-clis.sh           # claude, codex, opencode
+  setup-ai-clis.sh # claude, codex, opencode
   setup-flatpaks.sh
 
   # 7) Desktop environment
