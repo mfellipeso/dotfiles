@@ -43,4 +43,13 @@ else
   ok "accept-routes habilitado"
 fi
 
+# --- 5. Operator: permite usar `tailscale` sem sudo ---------------------------
+info "Verificando operator..."
+if sudo tailscale debug prefs 2>/dev/null | grep -q "\"OperatorUser\": \"$USER\""; then
+  skipped "operator já é $USER"
+else
+  sudo tailscale set --operator="$USER"
+  ok "operator = $USER"
+fi
+
 ok "Setup do tailscale concluído."
