@@ -14,6 +14,7 @@ enable_service power-profiles-daemon
 
 # --- 2. bluetooth -------------------------------------------------------------
 info "bluetooth..."
+pacman_install bluez bluez-utils
 enable_service bluetooth
 
 # --- 3. Desabilitar arch-update tray/timer (CachyOS) -------------------------

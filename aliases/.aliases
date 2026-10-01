@@ -13,7 +13,6 @@ alias fping='fping -a -q -g'                              # Realiza ping para um
 alias end='cd ~'                                          # Volta para a raiz do usuário Cisco Like.
 alias ping='ping -O'                                      # Modifica o ping para exibir as percas.
 alias shut='shutdown -h now'                              # Desliga o pc.
-alias speedtest='speedtest -s 55720'                      # Speed test Araujosat server.
 alias neofetch='fastfetch'                                # Neofetch descontinuado.
 alias ls='eza --icons=always'                             # Icons on ls
 
@@ -59,8 +58,3 @@ alias codex='codex --yolo'
 ############################################################################
 # Busca rápida system-wide com fd. Uso: f <padrão>
 f() { fd --type d --hidden --no-ignore --exclude proc --exclude sys --exclude run "${1:-}" / 2>/dev/null; }
-
-############################################################################
-# ============================= SCRIPTS ================================== #
-############################################################################
-[[ -f ~/dotfiles/scripts/work.sh ]] && source ~/dotfiles/scripts/work.sh

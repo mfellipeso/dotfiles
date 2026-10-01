@@ -18,7 +18,6 @@ ok()      { echo -e "${GREEN}    ok: $*${RESET}"; }
 skipped() { echo -e "${YELLOW}    --: $*${RESET}"; }
 err()     { echo -e "${RED}    erro: $*${RESET}"; }
 
-ZSHRC="${ZSHRC:-$HOME/.zshrc}"
 DOTFILES_DIR="${DOTFILES_DIR:-$(cd "$(dirname "${BASH_SOURCE[0]}")/../../.." && pwd)}"
 
 # Permite return quando sourced, exit quando executado direto.
@@ -44,16 +43,14 @@ pacman_install() {
   fi
 }
 
-# zshrc_append <marker> <bloco>
-# marker: substring única usada com grep -qF para idempotência
-zshrc_append() {
-  local marker="$1" block="$2"
-  if grep -qF "$marker" "$ZSHRC" 2>/dev/null; then
-    skipped "$marker já presente em $ZSHRC"
-    return 0
+# backup_unlinked <path>
+# Move um arquivo real (não-symlink) para <path>.bak, liberando o caminho pro stow.
+backup_unlinked() {
+  local path="$1"
+  if [[ -e "$path" && ! -L "$path" ]]; then
+    mv "$path" "${path}.bak"
+    ok "$path movido para ${path}.bak"
   fi
-  printf '\n%s\n' "$block" >> "$ZSHRC"
-  ok "$marker adicionado em $ZSHRC"
 }
 
 # enable_service <unit>
@@ -115,6 +112,20 @@ need_cmd() {
 # stow_pkg <name>  — linka pacote de $DOTFILES_DIR via stow
 stow_pkg() {
   local name="$1"
-  need_cmd stow "instale via setup-zsh.sh ou pacman -S stow" || return 1
+  command -v stow &>/dev/null || pacman_install stow
   stow --dir="$DOTFILES_DIR" --target="$HOME" "$name"
+}
+
+# link_pkg <pacote> <caminho relativo a $HOME que deve apontar pro repo>
+# Idempotente: pula se já linkado; faz backup de arquivo/diretório real antes do stow.
+link_pkg() {
+  local pkg="$1" rel="$2"
+  local target="$HOME/$rel" src="$DOTFILES_DIR/$pkg/$rel"
+  if [[ -L "$target" && "$(readlink -f "$target")" == "$(readlink -f "$src")" ]]; then
+    skipped "$rel já linkado"
+    return 0
+  fi
+  backup_unlinked "$target"
+  stow_pkg "$pkg"
+  ok "$pkg linkado via stow"
 }

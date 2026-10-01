@@ -1,0 +1,5 @@
+[tools]
+node = "latest"
+claude = "latest"
+codex = "latest"
+herdr = "0.8.2"

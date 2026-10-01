@@ -2,7 +2,7 @@
 set -euo pipefail
 
 # =============================================================================
-# TEMA — adw-gtk-theme + variantes flatpak + GNOME color-scheme dark
+# GNOME — TEMA: adw-gtk-theme + variantes flatpak + GNOME color-scheme dark
 # =============================================================================
 FLATPAK_THEMES=(
   org.gtk.Gtk3theme.adw-gtk3
@@ -20,34 +20,35 @@ pacman_install adw-gtk-theme
 
 # --- 2. Temas flatpak ---------------------------------------------------------
 need_cmd flatpak "rode setup-flatpaks.sh primeiro" || _finish 1
+flatpak remote-list --user | grep -q '^flathub' || { err "flathub (usuário) ausente — rode setup-flatpaks.sh primeiro"; _finish 1; }
 
 info "Temas flatpak..."
 for theme in "${FLATPAK_THEMES[@]}"; do
-  if flatpak info "$theme" &>/dev/null; then
+  if flatpak info --user "$theme" &>/dev/null; then
     skipped "$theme já instalado"
   else
-    flatpak install -y flathub "$theme"
+    flatpak install --user -y flathub "$theme"
     ok "$theme instalado"
   fi
 done
 
 # --- 3. Override de filesystem para themes ------------------------------------
 info "Verificando override --filesystem=xdg-data/themes..."
-if sudo flatpak override --show 2>/dev/null | grep -q 'filesystems=.*xdg-data/themes'; then
+if flatpak override --user --show 2>/dev/null | grep -q 'filesystems=.*xdg-data/themes'; then
   skipped "override xdg-data/themes já aplicado"
 else
-  sudo flatpak override --filesystem=xdg-data/themes
+  flatpak override --user --filesystem=xdg-data/themes
   ok "override xdg-data/themes aplicado"
 fi
 
 # --- 4. Mask dos temas (impede atualização automática) -----------------------
 info "Verificando masks dos temas..."
-current_masks="$(sudo flatpak mask 2>/dev/null || echo "")"
+current_masks="$(flatpak mask --user 2>/dev/null || echo "")"
 for theme in "${FLATPAK_THEMES[@]}"; do
   if echo "$current_masks" | grep -qF "$theme"; then
     skipped "$theme já mascarado"
   else
-    sudo flatpak mask "$theme"
+    flatpak mask --user "$theme"
     ok "$theme mascarado"
   fi
 done

@@ -14,7 +14,6 @@ PACKAGES=(
   fd
   bat
   eza
-  zsh
   lazygit
   btop
   fastfetch
@@ -22,7 +21,6 @@ PACKAGES=(
   wget
   curl
   jq
-  ptyxis
   nano
   fuse2
   libreoffice-fresh

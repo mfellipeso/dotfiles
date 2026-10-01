@@ -7,7 +7,7 @@ set -euo pipefail
 
 source "$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/lib/common.sh"
 
-PACKAGES=(qemu-full virt-manager swtpm)
+PACKAGES=(qemu-full virt-manager swtpm dnsmasq)  # dnsmasq: DHCP/NAT da rede default
 VM_DIR="/var/lib/libvirt"
 NETWORK_CONF="/etc/libvirt/network.conf"
 FIREWALL_ENTRY='firewall_backend = "iptables"'
@@ -54,7 +54,7 @@ fi
 if sudo virsh net-info default 2>/dev/null | grep -q "Active:.*yes"; then
   skipped "rede default já ativa"
 else
-  sudo virsh net-start default 2>/dev/null || true
+  sudo virsh net-start default
   ok "rede default iniciada"
 fi
 

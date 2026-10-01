@@ -4,26 +4,25 @@ set -euo pipefail
 # =============================================================================
 # CONFIGURAÇÃO DO HERDR  (Arch)
 # =============================================================================
-# herdr é um multiplexador de terminal agent-aware (estilo tmux), instalado como
-# binário em ~/.local/bin via script oficial. Na primeira execução ele grava um
-# config.toml REAL em ~/.config/herdr/, então movemos esse arquivo antes de
-# linkar o nosso via stow (mesma lógica do setup-tmux.sh).
+# herdr é um multiplexador de terminal agent-aware (estilo tmux), instalado via mise.
+# Na primeira execução ele grava um config.toml REAL em ~/.config/herdr/, então movemos esse arquivo antes de
+# linkar o nosso via stow.
 
 source "$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/lib/common.sh"
 
 HERDR_CONF="$HOME/.config/herdr/config.toml"
 STOW_LINK="$DOTFILES_DIR/herdr/.config/herdr/config.toml"
 
-# --- 1. Instalar herdr --------------------------------------------------------
+# --- 1. herdr (versão definida em mise/.config/mise/config.toml) -------------
 info "herdr..."
-if command -v herdr &>/dev/null; then
-  skipped "herdr já instalado ($(herdr --version 2>/dev/null || echo 'versão desconhecida'))"
-else
-  curl -fsSL https://herdr.dev/install.sh | sh
-  ok "herdr instalado"
-fi
+need_cmd mise "rode setup-mise.sh primeiro" || _finish 1
 
-need_cmd stow "instale via setup-zsh.sh ou pacman -S stow" || _finish 1
+if mise exec -- herdr --version &>/dev/null; then
+  skipped "herdr já instalado ($(mise exec -- herdr --version 2>/dev/null))"
+else
+  mise install --yes herdr
+  ok "herdr instalado via mise"
+fi
 
 # --- 2. Remover config auto-gerado (arquivo real sobrescreve o nosso) ---------
 info "Verificando conflitos de config..."

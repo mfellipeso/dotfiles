@@ -29,7 +29,7 @@ if [[ $system_weather -eq 0 && $flatpak_weather -eq 0 ]]; then
       ;;
     flatpak|f)
       need_cmd flatpak "rode setup-flatpaks.sh primeiro" || _finish 1
-      flatpak install -y flathub org.gnome.Weather
+      flatpak install --user -y flathub org.gnome.Weather
       ok "GNOME Weather instalado via flatpak"
       flatpak_weather=1
       ;;

@@ -15,11 +15,7 @@ UPOWER_CONF="/etc/UPower/UPower.conf"
 source "$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/lib/common.sh"
 
 info "Verificando $UPOWER_CONF..."
-
-if [[ ! -f "$UPOWER_CONF" ]]; then
-  err "$UPOWER_CONF não encontrado — pacote upower instalado?"
-  _finish 1
-fi
+pacman_install upower
 
 if sudo grep -qE '^NoPollBatteries=true$' "$UPOWER_CONF"; then
   skipped "$UPOWER_CONF já está com NoPollBatteries=true"
