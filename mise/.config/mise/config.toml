@@ -1,5 +1,12 @@
 [tools]
 node = "latest"
-claude = "latest"
-codex = "latest"
 herdr = "0.8.2"
+
+# Sem o atraso padrão de 24h para versões novas (minimum_release_age).
+[tools.claude]
+version = "latest"
+minimum_release_age = "0"
+
+[tools.codex]
+version = "latest"
+minimum_release_age = "0"
