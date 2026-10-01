@@ -10,6 +10,7 @@ FLATPAKS=(
   io.github.giantpinkrobots.flatsweep
   it.mijorus.gearlever
   be.alexandervanhee.gradia
+  io.github.seadve.Kooha
 )
 # =============================================================================
 
